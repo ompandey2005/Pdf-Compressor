@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Compressor - Compress Your PDF Files Online</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Link to your external CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="text-gray-800 flex items-center justify-center min-h-screen p-4">
+
+    <main class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl p-6 md:p-10 transition-all">
+        
+        <!-- Header -->
+        <div class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">PDF Compressor</h1>
+            <p class="text-gray-500 mt-2">Reduce the size of your PDF files quickly and easily.</p>
+        </div>
+
+        <!-- Step 1: File Upload -->
+        <div id="upload-step">
+            <div id="file-drop-zone" class="file-drop-zone">
+                <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <p class="mt-4 text-lg text-gray-600">Drag & drop your PDF here</p>
+                <p class="text-sm text-gray-500 mt-1">or</p>
+                <button type="button" id="select-file-btn" class="mt-2 font-medium text-indigo-600 hover:text-indigo-500">
+                    Select a file
+                </button>
+            </div>
+            <input type="file" id="file-upload-input" class="hidden" accept=".pdf">
+        </div>
+
+        <!-- Step 2: File Details & Compression Options -->
+        <div id="details-step" class="hidden">
+            <div class="bg-gray-100 p-4 rounded-lg mb-6 border border-gray-200">
+                <h3 class="font-bold text-lg mb-2">File Details</h3>
+                <div class="flex justify-between text-sm">
+                    <p class="text-gray-600">File Name:</p>
+                    <p id="file-name" class="font-medium truncate pl-4"></p>
+                </div>
+                <div class="flex justify-between text-sm mt-1">
+                    <p class="text-gray-600">Original Size:</p>
+                    <p id="file-size" class="font-medium"></p>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-lg mb-4 text-center">Choose Compression Level</h3>
+                <div id="compression-options" class="grid sm:grid-cols-3 gap-4">
+                    <div class="compression-option text-center" data-level="lite">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto mb-2 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <h4 class="font-semibold text-lg">Lite</h4>
+                        <p class="text-sm text-gray-500">Good Quality</p>
+                    </div>
+                    <div class="compression-option text-center selected" data-level="standard">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto mb-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                        <h4 class="font-semibold text-lg">Standard</h4>
+                        <p class="text-sm text-gray-500">Recommended</p>
+                    </div>
+                    <div class="compression-option text-center" data-level="strong">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto mb-2 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                        <h4 class="font-semibold text-lg">Strong</h4>
+                        <p class="text-sm text-gray-500">High Compression</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <button id="compress-btn" class="btn btn-primary w-full md:w-auto">Compress PDF</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Results -->
+        <div id="result-step" class="hidden text-center">
+             <div id="loading-spinner" class="hidden my-8">
+                <svg class="animate-spin h-10 w-10 text-indigo-600 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <p class="mt-4 text-gray-600">Compressing your file, please wait...</p>
+            </div>
+            <div id="result-details" class="hidden">
+                <h2 class="text-2xl font-bold text-green-600 mb-4">Compression Complete!</h2>
+                <div class="bg-green-50 border border-green-200 rounded-lg p-6 max-w-md mx-auto">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-gray-600">Original Size:</span>
+                        <span id="original-size-result" class="font-bold text-lg"></span>
+                    </div>
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-gray-600">New Size:</span>
+                        <span id="new-size-result" class="font-bold text-lg text-green-700"></span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+                        <div id="progress-bar" class="bg-green-500 h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                    <p class="text-xl font-medium">Reduced by <span id="reduction-percentage" class="text-green-600 font-bold"></span></p>
+                </div>
+                <div class="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <a id="download-btn" class="btn btn-primary w-full sm:w-auto">Download Compressed PDF</a>
+                    <button id="start-over-btn" class="btn btn-secondary w-full sm:w-auto">Compress Another</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- External JavaScript libraries -->
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <!-- Link to your external JS file -->
+    <script src="script.js"></script>
+</body>
+</html>
