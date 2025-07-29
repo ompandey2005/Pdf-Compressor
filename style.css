@@ -2,6 +2,15 @@
 body {
     font-family: 'Inter', sans-serif;
     background: linear-gradient(to top right, #f3e8ff, #e0e7ff);
+    /* Flexbox properties for sticky footer */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Make the main content area grow to fill available space */
+main {
+    flex-grow: 1;
 }
 
 /* Reusable Transition Class */
@@ -86,4 +95,14 @@ body {
 .compression-option.selected {
     border-color: #4f46e5;
     box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+
+/* Footer Styles */
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: auto; /* Pushes footer to the bottom */
+    background-color: rgba(255, 255, 255, 0.5);
+    border-top: 1px solid #e5e7eb;
 }
